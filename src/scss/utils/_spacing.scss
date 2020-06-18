@@ -1,4 +1,5 @@
 $spaceamounts: (
+  auto,
   1,
   2,
   3,
@@ -73,5 +74,20 @@ $spaceamounts: (
 @each $spaceamount in $spaceamounts {
   .has-pl-#{$spaceamount} {
     padding-left: #{$spaceamount}em;
+  }
+}
+
+// height
+
+@each $spaceamount in $spaceamounts {
+  .h-#{$spaceamount} {
+    min-height: #{$spaceamount}em;
+  }
+}
+
+// width
+@each $spaceamount in $spaceamounts {
+  .w-#{$spaceamount} {
+    width: #{$spaceamount}em;
   }
 }

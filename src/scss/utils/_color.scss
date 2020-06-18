@@ -1,0 +1,11 @@
+// $colors: (tomato, red, teal);
+
+// @each $color in $colors {
+//   .has-color-#{$color} {
+//     background-color: $color;
+//   }
+// }
+
+.has-bg-red {
+  background-color: red;
+}
