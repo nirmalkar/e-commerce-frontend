@@ -4,5 +4,6 @@ $justifies: (flex-start, flex-end, center, space-between, space-around);
   .is-#{$justify} {
     display: flex;
     justify-content: $justify;
+    flex-wrap: wrap;
   }
 }

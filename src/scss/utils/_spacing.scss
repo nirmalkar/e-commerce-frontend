@@ -1,5 +1,6 @@
 $spaceamounts: (
   auto,
+  0,
   1,
   2,
   3,
@@ -25,54 +26,54 @@ $spaceamounts: (
 
 // margin
 @each $spaceamount in $spaceamounts {
-  .has-m-#{$spaceamount} {
+  .m-#{$spaceamount} {
     margin: #{$spaceamount}em;
   }
 }
 @each $spaceamount in $spaceamounts {
-  .has-mt-#{$spaceamount} {
+  .mt-#{$spaceamount} {
     margin-top: #{$spaceamount}em;
   }
 }
 @each $spaceamount in $spaceamounts {
-  .has-mr-#{$spaceamount} {
+  .mr-#{$spaceamount} {
     margin-right: #{$spaceamount}em;
   }
 }
 @each $spaceamount in $spaceamounts {
-  .has-mb-#{$spaceamount} {
+  .mb-#{$spaceamount} {
     margin-bottom: #{$spaceamount}em;
   }
 }
 @each $spaceamount in $spaceamounts {
-  .has-ml-#{$spaceamount} {
+  .ml-#{$spaceamount} {
     margin-left: #{$spaceamount}em;
   }
 }
 
 // padding
 @each $spaceamount in $spaceamounts {
-  .has-p-#{$spaceamount} {
+  .p-#{$spaceamount} {
     padding: #{$spaceamount}em;
   }
 }
 @each $spaceamount in $spaceamounts {
-  .has-pt-#{$spaceamount} {
+  .pt-#{$spaceamount} {
     padding-top: #{$spaceamount}em;
   }
 }
 @each $spaceamount in $spaceamounts {
-  .has-pr-#{$spaceamount} {
+  .pr-#{$spaceamount} {
     padding-right: #{$spaceamount}em;
   }
 }
 @each $spaceamount in $spaceamounts {
-  .has-pb-#{$spaceamount} {
+  .pb-#{$spaceamount} {
     padding-bottom: #{$spaceamount}em;
   }
 }
 @each $spaceamount in $spaceamounts {
-  .has-pl-#{$spaceamount} {
+  .pl-#{$spaceamount} {
     padding-left: #{$spaceamount}em;
   }
 }
@@ -89,5 +90,11 @@ $spaceamounts: (
 @each $spaceamount in $spaceamounts {
   .w-#{$spaceamount} {
     width: #{$spaceamount}em;
+  }
+}
+
+@each $spaceamount in $spaceamounts {
+  .m-#{$spaceamount}-auto {
+    margin: $spaceamount auto;
   }
 }
