@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { listProducts } from "../appRedux/aciton/productActions";
+import { listProducts } from "../appRedux/action/productActions";
 import Sidebar from "../components/Sidebar";
 
 const Home = () => {
@@ -43,7 +43,7 @@ const Home = () => {
             <div id="navbarMenuHeroC" className="navbar-menu">
               <div className="navbar-end">
                 <a className="navbar-item" href="/home">
-                  Home
+                  Cart
                 </a>
                 <a className="navbar-item" href="/examples">
                   Examples
