@@ -3,12 +3,14 @@ import thunk from "redux-thunk";
 import {
   productListReducer,
   productDetailsReducer,
-} from "../reducer/productReducers";
+} from "../reducer/productReducer";
+import { cartReducer } from "../reducer/cartReducer";
 
 const initialState = {};
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  cart: cartReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
