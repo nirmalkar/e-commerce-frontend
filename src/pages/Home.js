@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { listProducts } from "../appRedux/aciton/productActions";
 import Sidebar from "../components/Sidebar";
@@ -60,7 +61,11 @@ const Home = () => {
       <div className="hero-body">
         <div className="container is-space-between m-0-auto pt-7">
           {products.map((product) => (
-            <div className="card h-10 w-20 mt-4" key={product._id}>
+            <Link
+              className="card h-10 w-20 mt-4"
+              to={`/products/${product._id}`}
+              key={product._id}
+            >
               <div className="card-image">
                 <figure className="image">
                   <img src={product.image} alt="Product" />
@@ -78,7 +83,7 @@ const Home = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
