@@ -1,22 +1,27 @@
 import React, { useEffect } from "react";
 import propTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../appRedux/action/cartAction";
+import { addToCart, removeItemFromCart } from "../appRedux/action/cartAction";
 import { Link } from "react-router-dom";
 
 const Cart = (props) => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
   console.log(cartItems);
   const productId = props.match.params.id;
-  const qty = props.location.search
-    ? Number(props.location.search.split("=")[1])
-    : 1;
+  const qty = props.location.search ? props.location.search.split("=")[1] : "1";
   const dispatch = useDispatch();
+  const removeFromCart = (productId) => {
+    dispatch(removeItemFromCart(productId));
+  };
+  const checkOutHandler = () => {
+    props.history.push(`/signin?redirect=shipping`);
+  };
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
-    return () => {};
+    // return () => {};
   }, []);
   return (
     <div className="columns">
@@ -27,17 +32,28 @@ const Cart = (props) => {
             {cartItems.map((item) => (
               <div key={item._id}>
                 <img src={item.image} alt="item" />
-                {console.log(item)}
                 <ul>
                   <Link to={`/products/${item.product}`}>
                     <li>Name: {item.name}</li>
                   </Link>
                   <li>Price: ${item.price}</li>
                 </ul>
-                Qty:{" "}
-                <select value={"1"}>
-                  <option value="1">1</option>
+                Qty: {console.log(item.qty)}
+                <select
+                  value={item.qty}
+                  onChange={(e) =>
+                    dispatch(addToCart(item.product, e.target.value))
+                  }
+                >
+                  {[...Array(item.countInStock).keys()].map((count) => (
+                    <option key={count + 1} value={count + 1}>
+                      {count + 1}
+                    </option>
+                  ))}
                 </select>
+                <button onClick={() => removeFromCart(item.product)}>
+                  Delete
+                </button>
               </div>
             ))}
           </div>
@@ -53,6 +69,7 @@ const Cart = (props) => {
               <br />
               <button
                 className="button is-success"
+                onClick={checkOutHandler}
                 disabled={!cartItems.length}
               >
                 Checkout
@@ -66,6 +83,9 @@ const Cart = (props) => {
 };
 
 Cart.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func,
+  }),
   match: propTypes.shape({
     params: propTypes.shape({
       id: propTypes.string.isRequired,
