@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { listProducts } from "../appRedux/action/productActions";
+// import { signIn } from "../appRedux/action/userAction";
 import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   // const [products, setProducts] = useState([]);
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listProducts());
@@ -48,9 +51,15 @@ const Home = () => {
                 <a className="navbar-item" href="/examples">
                   Examples
                 </a>
-                <a className="navbar-item" href="/documentation">
-                  Documentation
-                </a>
+                {userInfo ? (
+                  <Link className="navbar-item" to="/profile">
+                    {userInfo.name}
+                  </Link>
+                ) : (
+                  <Link className="navbar-item" to="/signin">
+                    signIn
+                  </Link>
+                )}
                 <span className="navbar-item"></span>
               </div>
             </div>
