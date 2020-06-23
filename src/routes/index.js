@@ -5,6 +5,7 @@ import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
+import Register from "../pages/Register";
 
 const Routes = () => {
   return (
@@ -12,6 +13,7 @@ const Routes = () => {
       <Route path="/products/:id" component={ProductDetails} />
       <Route path="/cart/:id?" component={Cart} />
       <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/register" component={Register} />
       <Route exact path="/" render={() => <Home />} />
     </>
   );
