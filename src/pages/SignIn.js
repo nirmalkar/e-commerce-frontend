@@ -1,11 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import propTypes from "prop-types";
 
-const SignIn = () => {
+import { signIn } from "../appRedux/action/userAction";
+import { Link } from "react-router-dom";
+
+const SignIn = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const submitHandler = (e) => {};
+
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { loading, userInfo, error } = userSignIn;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userInfo) {
+      props.history.push("/");
+    }
+  }, [userInfo]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(signIn(email, password));
+  };
   return (
     <section className="hero is-fullheight">
+      {loading && <div>Loading</div>}
+      {error && <div>{error}</div>}
       <div className="hero-body">
         <div className="container">
           <div className="columns is-centered">
@@ -14,12 +35,15 @@ const SignIn = () => {
                 <div className="card-content">
                   <form onSubmit={submitHandler}>
                     <div className="field">
-                      <label className="label">Name</label>
+                      <label className="label" htmlFor="email">
+                        Name
+                      </label>
                       <div className="control">
                         <input
                           required
                           value={email}
                           className="input"
+                          name="email"
                           type="email"
                           placeholder="Email"
                           onChange={(e) => setEmail(e.target.value)}
@@ -27,10 +51,13 @@ const SignIn = () => {
                       </div>
                     </div>
                     <div className="field">
-                      <label className="label">Name</label>
+                      <label className="label" htmlFor="password">
+                        Password
+                      </label>
                       <div className="control">
                         <input
                           required
+                          name="password"
                           value={password}
                           className="input"
                           type="password"
@@ -42,6 +69,7 @@ const SignIn = () => {
                     <button className="button  is-primary is-light is-fullwidth">
                       Sign In
                     </button>
+                    Do not have an account?<Link to="/register">Register</Link>
                   </form>
                 </div>
               </div>
@@ -51,5 +79,11 @@ const SignIn = () => {
       </div>
     </section>
   );
+};
+
+SignIn.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
+  }),
 };
 export default SignIn;
