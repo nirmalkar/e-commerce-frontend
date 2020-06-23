@@ -6,13 +6,17 @@ import {
   productDetailsReducer,
 } from "../reducer/productReducer";
 import { cartReducer } from "../reducer/cartReducer";
+import { userSignInReducer, userRegisterReducer } from "../reducer/userReducer";
 
 const cartItems = Cookie.getJSON("cartItems") || [];
+const userInfo = Cookie.getJSON("userInfo") || null;
 
-const initialState = { cart: { cartItems } };
+const initialState = { cart: { cartItems }, userSignIn: { userInfo } };
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  userSignIn: userSignInReducer,
+  userRegistration: userRegisterReducer,
   cart: cartReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
