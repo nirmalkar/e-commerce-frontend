@@ -5,6 +5,9 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  ADD_PRODUCT_FAIL,
+  ADD_PRODUCT_SUCCESS,
+  ADD_PRODUCT_REQUEST,
 } from "../../constants/actionTypes";
 
 function productListReducer(state = { products: [] }, action) {
@@ -14,6 +17,18 @@ function productListReducer(state = { products: [] }, action) {
     case PRODUCT_LIST_SUCCESS:
       return { loading: false, products: action.payload };
     case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+function addProductReducer(state = { products: [] }, action) {
+  switch (action.type) {
+    case ADD_PRODUCT_REQUEST:
+      return { loading: true };
+    case ADD_PRODUCT_SUCCESS:
+      return { loading: false, success: true, products: action.payload };
+    case ADD_PRODUCT_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
@@ -32,4 +47,4 @@ function productDetailsReducer(state = { product: [] }, action) {
   }
 }
 
-export { productListReducer, productDetailsReducer };
+export { productListReducer, productDetailsReducer, addProductReducer };
