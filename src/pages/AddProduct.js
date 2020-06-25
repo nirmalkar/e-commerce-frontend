@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import propTypes from "prop-types";
 
-import { addProduct } from "../appRedux/action/productActions";
+import { addProduct, listProducts } from "../appRedux/action/productActions";
 
 const AddProduct = (props) => {
-  const [productName, setProductName] = useState("");
+  const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
   const [image, setImage] = useState("");
@@ -14,49 +14,88 @@ const AddProduct = (props) => {
   const [countInStock, setCountInStock] = useState("");
 
   const productAdd = useSelector((state) => state.productAdd);
-  const { loading, error } = productAdd;
+  const productList = useSelector((state) => state.productList);
+  const { loading, products, error } = productList;
+  console.log(loading);
+  console.log(products);
+  const { loading: loadingAdd, error: errorAdd } = productAdd;
   const dispatch = useDispatch();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(listProducts());
+  }, []);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      addProduct(
-        productName,
+      addProduct({
+        name,
         price,
         brand,
         image,
         category,
         description,
-        countInStock
-      )
+        countInStock,
+      })
     );
   };
   return (
     <section className="hero is-fullheight">
-      {loading && <div>Loading</div>}
+      {loadingAdd && <div>Loading..</div>}
+      {errorAdd && <div>{errorAdd}</div>}
+      {loading && <div>Loading..</div>}
       {error && <div>{error}</div>}
       <div className="hero-body">
         <div className="container">
+          <div className="table-container">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Brand</th>
+                  <th>Category</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products !== undefined &&
+                  products.map((product, i) => {
+                    return (
+                      <tr key={i}>
+                        <td>{product._id}</td>
+                        <td>{product.name}</td>
+                        <td>{product.price}</td>
+                        <td>{product.brand}</td>
+                        <td>{product.category}</td>
+                        <td>
+                          <button className="button">Action</button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
           <div className="columns is-centered">
             <div className="column is-4">
               <div className="card">
                 <div className="card-content">
                   <form onSubmit={submitHandler}>
                     <div className="field">
-                      <label className="label" htmlFor="email">
+                      <label className="label" htmlFor="name">
                         Product Name
                       </label>
                       <div className="control">
                         <input
                           required
-                          value={productName}
+                          value={name}
                           className="input"
-                          name="productName"
+                          name="name"
                           type="text"
                           placeholder="Product Name"
-                          onChange={(e) => setProductName(e.target.value)}
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
                     </div>

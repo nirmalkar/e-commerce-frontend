@@ -15,7 +15,7 @@ const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get("http://localhost:4000/api/products");
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.products });
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (err) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: err.message });
   }
@@ -27,11 +27,15 @@ const addProduct = (product) => async (dispatch, getState) => {
   } = getState();
   try {
     dispatch({ type: ADD_PRODUCT_REQUEST, payload: product });
-    const { data } = await axios.post("http://localhost:4000/api/products", {
-      headers: {
-        Authorization: "Bearer" + userInfo.token,
-      },
-    });
+    const { data } = await axios.post(
+      "http://localhost:4000/api/products",
+      product,
+      {
+        headers: {
+          Authorization: "Bearer" + userInfo.token,
+        },
+      }
+    );
     dispatch({ type: ADD_PRODUCT_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: ADD_PRODUCT_FAIL, payload: error.message });
