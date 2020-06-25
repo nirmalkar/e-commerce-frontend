@@ -12,12 +12,11 @@ const AddProduct = (props) => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [countInStock, setCountInStock] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const productAdd = useSelector((state) => state.productAdd);
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
-  console.log(loading);
-  console.log(products);
   const { loading: loadingAdd, error: errorAdd } = productAdd;
   const dispatch = useDispatch();
 
@@ -47,7 +46,8 @@ const AddProduct = (props) => {
       {error && <div>{error}</div>}
       <div className="hero-body">
         <div className="container">
-          <div className="table-container">
+          <h2 className="is-size-4 is-center">Products</h2>
+          <div className="table-container is-center">
             <table className="table">
               <thead>
                 <tr>
@@ -70,7 +70,18 @@ const AddProduct = (props) => {
                         <td>{product.brand}</td>
                         <td>{product.category}</td>
                         <td>
-                          <button className="button">Action</button>
+                          <button
+                            onClick={() => setModalVisible(!modalVisible)}
+                            className="button"
+                          >
+                            Add Product
+                          </button>
+                        </td>
+                        <td>
+                          <button className="button">Edit</button>
+                        </td>
+                        <td>
+                          <button className="button">Delete</button>
                         </td>
                       </tr>
                     );
@@ -78,129 +89,144 @@ const AddProduct = (props) => {
               </tbody>
             </table>
           </div>
-          <div className="columns is-centered">
-            <div className="column is-4">
-              <div className="card">
-                <div className="card-content">
-                  <form onSubmit={submitHandler}>
-                    <div className="field">
-                      <label className="label" htmlFor="name">
-                        Product Name
-                      </label>
-                      <div className="control">
-                        <input
-                          required
-                          value={name}
-                          className="input"
-                          name="name"
-                          type="text"
-                          placeholder="Product Name"
-                          onChange={(e) => setName(e.target.value)}
-                        />
+          <div className={modalVisible ? "modal is-active" : "modal"}>
+            <div className="modal-background"></div>
+            <div className="modal-card">
+              <header className="modal-card-head">
+                <p className="modal-card-title">Add Product</p>
+                {/* <button className="delete" aria-label="close"></button> */}
+              </header>
+              <section className="modal-card-body">
+                <div className="columns is-centered">
+                  <div className="column is-12">
+                    <form onSubmit={submitHandler}>
+                      <div className="field">
+                        <label className="label" htmlFor="name">
+                          Product Name
+                        </label>
+                        <div className="control">
+                          <input
+                            required
+                            value={name}
+                            className="input"
+                            name="name"
+                            type="text"
+                            placeholder="Product Name"
+                            onChange={(e) => setName(e.target.value)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="field">
-                      <label className="label" htmlFor="price">
-                        Price
-                      </label>
-                      <div className="control">
-                        <input
-                          required
-                          value={price}
-                          className="input"
-                          name="price"
-                          type="number"
-                          placeholder="Price"
-                          onChange={(e) => setPrice(e.target.value)}
-                        />
+                      <div className="field">
+                        <label className="label" htmlFor="price">
+                          Price
+                        </label>
+                        <div className="control">
+                          <input
+                            required
+                            value={price}
+                            className="input"
+                            name="price"
+                            type="number"
+                            placeholder="Price"
+                            onChange={(e) => setPrice(e.target.value)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="field">
-                      <label className="label" htmlFor="brand">
-                        Brand
-                      </label>
-                      <div className="control">
-                        <input
-                          required
-                          value={brand}
-                          className="input"
-                          name="price"
-                          type="text"
-                          placeholder="Brand"
-                          onChange={(e) => setBrand(e.target.value)}
-                        />
+                      <div className="field">
+                        <label className="label" htmlFor="brand">
+                          Brand
+                        </label>
+                        <div className="control">
+                          <input
+                            required
+                            value={brand}
+                            className="input"
+                            name="price"
+                            type="text"
+                            placeholder="Brand"
+                            onChange={(e) => setBrand(e.target.value)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="field">
-                      <label className="label" htmlFor="image">
-                        Image
-                      </label>
-                      <div className="control">
-                        <input
-                          required
-                          value={image}
-                          className="input"
-                          name="image"
-                          type="text"
-                          placeholder="Image"
-                          onChange={(e) => setImage(e.target.value)}
-                        />
+                      <div className="field">
+                        <label className="label" htmlFor="image">
+                          Image
+                        </label>
+                        <div className="control">
+                          <input
+                            required
+                            value={image}
+                            className="input"
+                            name="image"
+                            type="text"
+                            placeholder="Image"
+                            onChange={(e) => setImage(e.target.value)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="field">
-                      <label className="label" htmlFor="category">
-                        Category
-                      </label>
-                      <div className="control">
-                        <input
-                          required
-                          value={category}
-                          className="input"
-                          name="category"
-                          type="text"
-                          placeholder="Category"
-                          onChange={(e) => setCategory(e.target.value)}
-                        />
+                      <div className="field">
+                        <label className="label" htmlFor="category">
+                          Category
+                        </label>
+                        <div className="control">
+                          <input
+                            required
+                            value={category}
+                            className="input"
+                            name="category"
+                            type="text"
+                            placeholder="Category"
+                            onChange={(e) => setCategory(e.target.value)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="field">
-                      <label className="label" htmlFor="description">
-                        Description
-                      </label>
-                      <div className="control">
-                        <input
-                          required
-                          value={description}
-                          className="input"
-                          name="description"
-                          type="text"
-                          placeholder="Description"
-                          onChange={(e) => setDescription(e.target.value)}
-                        />
+                      <div className="field">
+                        <label className="label" htmlFor="description">
+                          Description
+                        </label>
+                        <div className="control">
+                          <input
+                            required
+                            value={description}
+                            className="input"
+                            name="description"
+                            type="text"
+                            placeholder="Description"
+                            onChange={(e) => setDescription(e.target.value)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="field">
-                      <label className="label" htmlFor="countInStock">
-                        Count In Stock
-                      </label>
-                      <div className="control">
-                        <input
-                          required
-                          value={countInStock}
-                          className="input"
-                          name="countInStock"
-                          type="number"
-                          placeholder="Count In Stock"
-                          onChange={(e) => setCountInStock(e.target.value)}
-                        />
+                      <div className="field">
+                        <label className="label" htmlFor="countInStock">
+                          Count In Stock
+                        </label>
+                        <div className="control">
+                          <input
+                            required
+                            value={countInStock}
+                            className="input"
+                            name="countInStock"
+                            type="number"
+                            placeholder="Count In Stock"
+                            onChange={(e) => setCountInStock(e.target.value)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <button className="button  is-primary is-light is-fullwidth">
-                      Add Product
-                    </button>
-                  </form>
+                      <button className="button  is-primary is-light is-fullwidth">
+                        Add Product
+                      </button>
+                    </form>
+                  </div>
                 </div>
-              </div>
+              </section>
+              <footer className="modal-card-foot">
+                <button
+                  onClick={() => setModalVisible(!modalVisible)}
+                  className="button"
+                >
+                  Cancel
+                </button>
+              </footer>
             </div>
           </div>
         </div>
