@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import propTypes from "prop-types";
 
-import { addProduct, listProducts } from "../appRedux/action/productActions";
+import {
+  addProduct,
+  listProducts,
+  deleteProduct,
+} from "../appRedux/action/productActions";
 
 const AddProduct = (props) => {
   const [name, setName] = useState("");
@@ -13,21 +17,36 @@ const AddProduct = (props) => {
   const [description, setDescription] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [id, setId] = useState("");
 
   const productAdd = useSelector((state) => state.productAdd);
+  const {
+    loading: loadingAdd,
+    success: successAdd,
+    error: errorAdd,
+  } = productAdd;
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
-  const { loading: loadingAdd, error: errorAdd } = productAdd;
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
+  } = productDelete;
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (successAdd) {
+      setModalVisible(!modalVisible);
+    }
     dispatch(listProducts());
-  }, []);
+  }, [successAdd, successDelete]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
       addProduct({
+        _id: id,
         name,
         price,
         brand,
@@ -38,12 +57,28 @@ const AddProduct = (props) => {
       })
     );
   };
+  const onEdit = (product) => {
+    setId(product._id);
+    setName(product.name);
+    setPrice(product.price);
+    setBrand(product.brand);
+    setImage(product.image);
+    setCategory(product.category);
+    setDescription(product.description);
+    setCountInStock(product.countInStock);
+    setModalVisible(!modalVisible);
+  };
+  const onDelete = (product) => {
+    dispatch(deleteProduct(product._id));
+  };
   return (
     <section className="hero is-fullheight">
       {loadingAdd && <div>Loading..</div>}
       {errorAdd && <div>{errorAdd}</div>}
       {loading && <div>Loading..</div>}
       {error && <div>{error}</div>}
+      {loadingDelete && <div>Loading...</div>}
+      {errorDelete && <div>{errorDelete}</div>}
       <div className="hero-body">
         <div className="container">
           <h2 className="is-size-4 is-center">Products</h2>
@@ -78,10 +113,20 @@ const AddProduct = (props) => {
                           </button>
                         </td>
                         <td>
-                          <button className="button">Edit</button>
+                          <button
+                            onClick={() => onEdit(product)}
+                            className="button"
+                          >
+                            Edit
+                          </button>
                         </td>
                         <td>
-                          <button className="button">Delete</button>
+                          <button
+                            onClick={() => onDelete(product)}
+                            className="button"
+                          >
+                            Delete
+                          </button>
                         </td>
                       </tr>
                     );
@@ -213,7 +258,7 @@ const AddProduct = (props) => {
                         </div>
                       </div>
                       <button className="button  is-primary is-light is-fullwidth">
-                        Add Product
+                        {id ? "Update Product" : "Add Product"}
                       </button>
                     </form>
                   </div>
@@ -222,9 +267,9 @@ const AddProduct = (props) => {
               <footer className="modal-card-foot">
                 <button
                   onClick={() => setModalVisible(!modalVisible)}
-                  className="button"
+                  className="button is-pulled-right"
                 >
-                  Cancel
+                  Ok
                 </button>
               </footer>
             </div>
