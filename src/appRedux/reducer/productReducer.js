@@ -8,6 +8,9 @@ import {
   ADD_PRODUCT_FAIL,
   ADD_PRODUCT_SUCCESS,
   ADD_PRODUCT_REQUEST,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
 } from "../../constants/actionTypes";
 
 function productListReducer(state = { products: [] }, action) {
@@ -47,4 +50,22 @@ function productDetailsReducer(state = { product: [] }, action) {
   }
 }
 
-export { productListReducer, productDetailsReducer, addProductReducer };
+function productDeleteReducer(state = { product: [] }, action) {
+  switch (action.type) {
+    case PRODUCT_DELETE_REQUEST:
+      return { loading: true };
+    case PRODUCT_DELETE_SUCCESS:
+      return { loading: false, product: action.payload, success: true };
+    case PRODUCT_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+
+export {
+  productListReducer,
+  productDetailsReducer,
+  addProductReducer,
+  productDeleteReducer,
+};
