@@ -36,7 +36,7 @@ const addProduct = (product) => async (dispatch, getState) => {
         product,
         {
           headers: {
-            Authorization: "Bearer" + userInfo.token,
+            authorization: "Bearer" + userInfo.token,
           },
         }
       );
@@ -47,7 +47,7 @@ const addProduct = (product) => async (dispatch, getState) => {
         product,
         {
           headers: {
-            Authorization: "Bearer" + userInfo.token,
+            authorization: "Bearer" + userInfo.token,
           },
         }
       );
@@ -79,7 +79,7 @@ const deleteProduct = (productId) => async (dispatch, getState) => {
       `http://localhost:4000/api/products/${productId}`,
       {
         headers: {
-          Authorization: "Bearer" + userInfo.token,
+          authorization: "Bearer" + userInfo.token,
         },
       }
     );

@@ -1,6 +1,8 @@
 const {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
+  SAVE_SHIPPING_ADDR,
+  SAVE_PAYMENT,
 } = require("../../constants/actionTypes");
 
 function cartReducer(state = { cartItems: [] }, action) {
@@ -24,6 +26,10 @@ function cartReducer(state = { cartItems: [] }, action) {
           (item) => item.product !== action.payload
         ),
       };
+    case SAVE_SHIPPING_ADDR:
+      return { ...state, shipping: action.payload };
+    case SAVE_PAYMENT:
+      return { ...state, payment: action.payload };
     default:
       return state;
   }

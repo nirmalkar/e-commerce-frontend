@@ -3,6 +3,8 @@ import Cookie from "js-cookie";
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
+  SAVE_SHIPPING_ADDR,
+  SAVE_PAYMENT,
 } from "../../constants/actionTypes/index";
 
 const addToCart = (productId, qty) => async (dispatch, getState) => {
@@ -35,4 +37,11 @@ const removeItemFromCart = (productId) => (dispatch, getState) => {
   Cookie.set("cartItems", JSON.stringify(cartItems));
 };
 
-export { addToCart, removeItemFromCart };
+const saveShippingAddr = (data) => (dispatch) => {
+  dispatch({ type: SAVE_SHIPPING_ADDR, payload: data });
+};
+const savePayment = (data) => (dispatch) => {
+  dispatch({ type: SAVE_PAYMENT, payload: data });
+};
+
+export { addToCart, removeItemFromCart, saveShippingAddr, savePayment };
