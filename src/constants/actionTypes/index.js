@@ -1,4 +1,5 @@
 // Get all products
+// Get all products
 export const PRODUCT_LIST_REQUEST = "PRODUCT_LIST_REQUEST";
 export const PRODUCT_LIST_SUCCESS = "PRODUCT_LIST_SUCCESS";
 export const PRODUCT_LIST_FAIL = "PRODUCT_LIST_FAIL";
@@ -31,3 +32,9 @@ export const ADD_PRODUCT_FAIL = "ADD_PRODUCT_FAIL";
 export const PRODUCT_DELETE_REQUEST = "PRODUCT_DELETE_REQUEST";
 export const PRODUCT_DELETE_SUCCESS = "PRODUCT_DELETE_SUCCESS";
 export const PRODUCT_DELETE_FAIL = "PRODUCT_DELETE_FAIL";
+
+// Save shipping address
+export const SAVE_SHIPPING_ADDR = "SAVE_SHIPPING_ADDR";
+
+// Save payment
+export const SAVE_PAYMENT = "SAVE_PAYMENT";
