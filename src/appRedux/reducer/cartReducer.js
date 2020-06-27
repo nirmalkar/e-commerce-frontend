@@ -5,7 +5,10 @@ const {
   SAVE_PAYMENT,
 } = require("../../constants/actionTypes");
 
-function cartReducer(state = { cartItems: [] }, action) {
+function cartReducer(
+  state = { cartItems: [], shipping: {}, payment: {} },
+  action
+) {
   const item = action.payload;
   let product;
   switch (action.type) {
