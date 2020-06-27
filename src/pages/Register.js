@@ -13,12 +13,14 @@ const Register = (props) => {
   const userRegistration = useSelector((state) => state.userRegistration);
   const { loading, regUserInfo, error } = userRegistration;
 
-  console.log(userRegistration);
   const dispatch = useDispatch();
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
 
   useEffect(() => {
     if (regUserInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
   }, [regUserInfo]);
 
@@ -88,7 +90,16 @@ const Register = (props) => {
                     <button className="button  is-primary is-light is-fullwidth">
                       Register
                     </button>
-                    Already have an account?<Link to="/signin">Sign-In</Link>
+                    Already have an account?
+                    <Link
+                      to={
+                        redirect === "/"
+                          ? "/signin"
+                          : `signin?redirect=${redirect}`
+                      }
+                    >
+                      Sign-In
+                    </Link>
                   </form>
                 </div>
               </div>
@@ -103,6 +114,9 @@ const Register = (props) => {
 Register.propTypes = {
   history: propTypes.shape({
     push: propTypes.func.isRequired,
+  }),
+  location: propTypes.shape({
+    search: propTypes.func.isRequired,
   }),
 };
 export default Register;
