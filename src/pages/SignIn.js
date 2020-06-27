@@ -13,9 +13,13 @@ const SignIn = (props) => {
   const { loading, userInfo, error } = userSignIn;
   const dispatch = useDispatch();
 
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
+
   useEffect(() => {
     if (userInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
   }, [userInfo]);
 
@@ -69,7 +73,16 @@ const SignIn = (props) => {
                     <button className="button  is-primary is-light is-fullwidth">
                       Sign In
                     </button>
-                    Do not have an account?<Link to="/register">Register</Link>
+                    Do not have an account?
+                    <Link
+                      to={
+                        redirect === "/"
+                          ? "/register"
+                          : `register?redirect=${redirect}`
+                      }
+                    >
+                      Register
+                    </Link>
                   </form>
                 </div>
               </div>
@@ -84,6 +97,9 @@ const SignIn = (props) => {
 SignIn.propTypes = {
   history: propTypes.shape({
     push: propTypes.func.isRequired,
+  }),
+  location: propTypes.shape({
+    search: propTypes.func.isRequired,
   }),
 };
 export default SignIn;
