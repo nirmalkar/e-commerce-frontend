@@ -40,7 +40,7 @@ const AddProduct = (props) => {
       setModalVisible(!modalVisible);
     }
     dispatch(listProducts());
-  }, [successAdd, successDelete]);
+  }, [successAdd, successDelete, modalVisible, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
