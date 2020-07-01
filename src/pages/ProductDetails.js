@@ -5,14 +5,19 @@ import { detailsProduct } from "../appRedux/action/productActions";
 
 const ProductDetails = (props) => {
   const productId = props.match.params.id;
+
   const [qty, setQty] = useState(1);
+
   const productDetails = useSelector((state) => state.productDetails);
+
   const { product, loading, error } = productDetails;
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(detailsProduct(productId));
-    return () => {};
-  }, []);
+  }, [dispatch, productId]);
+
   const handleAddToCart = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`);
   };

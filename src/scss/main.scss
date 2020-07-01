@@ -3,7 +3,7 @@ html {
   box-sizing: border-box;
 }
 @import "variables";
-@import "../index.scss";
 @import "./utils/main";
+@import "../index.scss";
 
 @import "~bulma/bulma.sass";

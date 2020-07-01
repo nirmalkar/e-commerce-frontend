@@ -22,7 +22,7 @@ const Register = (props) => {
     if (regUserInfo) {
       props.history.push(redirect);
     }
-  }, [regUserInfo]);
+  }, [regUserInfo, props.history, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
