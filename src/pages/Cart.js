@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 const Cart = (props) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cartItems);
   const productId = props.match.params.id;
   const qty = props.location.search ? props.location.search.split("=")[1] : "1";
   const dispatch = useDispatch();
@@ -21,16 +20,15 @@ const Cart = (props) => {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
-    // return () => {};
-  }, []);
+  }, [dispatch, productId, qty]);
   return (
     <div className="columns">
       <div className="column is-primary has-full-height">
         <section className="section">
           <div className="container">
             <h1 className="title">Cart Items</h1>
-            {cartItems.map((item) => (
-              <div key={item._id}>
+            {cartItems.map((item, i) => (
+              <div key={item.id}>
                 <img src={item.image} alt="item" />
                 <ul>
                   <Link to={`/products/${item.product}`}>
