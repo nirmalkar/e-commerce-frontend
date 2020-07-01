@@ -1,3 +1,10 @@
+.t-font {
+  font-family: "Lora", serif;
+}
+.d-font {
+  font-family: "Roboto", sans-serif;
+}
+
 $cursors: (pointer, not-allowed, none);
 
 @each $cursor in $cursors {
