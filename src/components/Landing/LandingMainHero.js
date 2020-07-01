@@ -3,15 +3,11 @@ import { Link } from "react-router-dom";
 
 const LandingMainHero = () => {
   return (
-    <section className="hero is-success is-fullheight">
+    <section className="hero is-fullheight">
       <div className="hero-head">
         <div className="navbar">
           <div className="container">
-            <div className="navbar-brand is-size-3">
-              <Link to="/" className="c-w">
-                e-com
-              </Link>
-            </div>
+            <div className="navbar-brand is-size-3 d-font">ShopIt</div>
             <div id="navbarMenuHeroC" className="navbar-menu">
               <div className="navbar-end">
                 <span className="navbar-item">
@@ -44,12 +40,16 @@ const LandingMainHero = () => {
       </div>
       <div className="hero-body has-text-centered">
         <div className="container">
-          <h1 className="title is-size-2 is-dark mb-6">E-commerce</h1>
-          <h2 className="subtitle">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-            quibusdam necessitatibus sit quas a nobis repellat esse labore at
-            similique?
-          </h2>
+          <div className="columns is-centered">
+            <div className="column is-6">
+              <h1 className="title is-size-2 is-dark mb-6 d-font">ShopIt</h1>
+              <h2 className="subtitle t-font">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptate quibusdam necessitatibus sit quas a nobis repellat
+                esse labore at similique?
+              </h2>
+            </div>
+          </div>
         </div>
       </div>
     </section>
