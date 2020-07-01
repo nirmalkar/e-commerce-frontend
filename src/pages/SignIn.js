@@ -21,7 +21,7 @@ const SignIn = (props) => {
     if (userInfo) {
       props.history.push(redirect);
     }
-  }, [userInfo]);
+  }, [userInfo, props.history, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();

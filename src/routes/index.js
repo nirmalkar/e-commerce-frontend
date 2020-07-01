@@ -3,13 +3,14 @@ import { Route } from "react-router-dom";
 
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
-import Home from "../pages/Home";
+import Products from "../pages/Home";
 import SignIn from "../pages/SignIn";
 import Register from "../pages/Register";
 import AddProduct from "../pages/AddProduct";
 import Shipping from "../pages/Shipping";
 import Payment from "../pages/Payment";
 import PlaceOrder from "../pages/PlaceOrder";
+import Landing from "../pages/Landing";
 
 const Routes = () => {
   return (
@@ -22,7 +23,8 @@ const Routes = () => {
       <Route exact path="/placeorder" component={PlaceOrder} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/add-product" component={AddProduct} />
-      <Route exact path="/" render={() => <Home />} />
+      <Route exact path="/products" render={() => <Products />} />
+      <Route exact path="/" render={() => <Landing />} />
     </>
   );
 };
