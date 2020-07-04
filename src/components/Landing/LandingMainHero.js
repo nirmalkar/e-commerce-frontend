@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import SearchBar from "../search/SearchBar";
+
 const LandingMainHero = () => {
   return (
     <section className="hero is-fullheight">
@@ -11,15 +13,7 @@ const LandingMainHero = () => {
             <div id="navbarMenuHeroC" className="navbar-menu">
               <div className="navbar-end">
                 <span className="navbar-item">
-                  <div className="field">
-                    <div className="control w-6 is-loading">
-                      <input
-                        className="input is-rounded"
-                        type="text"
-                        placeholder="Search"
-                      />
-                    </div>
-                  </div>
+                  <SearchBar />
                 </span>
                 <Link to="/profile" className="navbar-item" href="#">
                   <i className="fas fa-user-circle fa-lg mr-2" />
