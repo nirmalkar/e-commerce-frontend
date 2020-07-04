@@ -5,7 +5,7 @@ import SearchBar from "../search/SearchBar";
 
 const Navbar = () => {
   return (
-    <div className="navbar">
+    <nav className="navbar is-fixed-top">
       <div className="container">
         <div className="navbar-brand is-size-3 d-font">ShopIt</div>
         <div id="navbarMenuHeroC" className="navbar-menu">
@@ -28,7 +28,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 export default Navbar;
