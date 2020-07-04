@@ -5,12 +5,13 @@ import SearchBar from "../search/SearchBar";
 
 const Navbar = () => {
   return (
-    <nav className="navbar is-fixed-top">
+    <nav className="navbar is-fixed-top pt-2 pb-2 has-shadow">
       <div className="container">
         <div className="navbar-brand is-size-3 d-font">ShopIt</div>
+        <span className="navbar-item w-25">asdf</span>
         <div id="navbarMenuHeroC" className="navbar-menu">
           <div className="navbar-end">
-            <span className="navbar-item">
+            <span className="navbar-item w-25">
               <SearchBar />
             </span>
             <Link to="/profile" className="navbar-item" href="#">
