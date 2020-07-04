@@ -1,12 +1,10 @@
 import React from "react";
-import Img from "../../assets/images/shopit1.jpg";
-
+import "glider-js/glider.min.css";
 const LandingSecondHero = () => {
   return (
     <section className="hero is-medium">
       <div className="container">
-        <figure className="image">
-          <img src={Img} />
+        <figure className="image mt-6">
           <p className="has-text-centered is-size-5 t-font mt-2">
             Organic Coconut Body Oil
           </p>
