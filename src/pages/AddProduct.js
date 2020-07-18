@@ -7,15 +7,10 @@ import {
   listProducts,
   deleteProduct,
 } from "../appRedux/action/productActions";
+import { initProductState } from "./util";
 
 const AddProduct = (props) => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [brand, setBrand] = useState("");
-  const [image, setImage] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [countInStock, setCountInStock] = useState("");
+  const [input, setInput] = useState({ ...initProductState });
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setId] = useState("");
 
@@ -37,39 +32,43 @@ const AddProduct = (props) => {
 
   useEffect(() => {
     if (successAdd) {
-      setModalVisible(!modalVisible);
+      setModalVisible((m) => !m);
     }
     dispatch(listProducts());
-  }, [successAdd, successDelete, modalVisible, dispatch]);
+  }, [successAdd, successDelete, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
       addProduct({
         _id: id,
-        name,
-        price,
-        brand,
-        image,
-        category,
-        description,
-        countInStock,
+        ...input,
       })
     );
+    setInput({ ...initProductState });
+    setId("");
   };
   const onEdit = (product) => {
     setId(product._id);
-    setName(product.name);
-    setPrice(product.price);
-    setBrand(product.brand);
-    setImage(product.image);
-    setCategory(product.category);
-    setDescription(product.description);
-    setCountInStock(product.countInStock);
+    setInput({
+      name: product.name,
+      price: product.price,
+      brand: product.brand,
+      image: product.image,
+      category: product.category,
+      description: product.description,
+      countInStock: product.countInStock,
+    });
     setModalVisible(!modalVisible);
   };
   const onDelete = (product) => {
     dispatch(deleteProduct(product._id));
+  };
+  const handleInputChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
   };
   return (
     <section className="hero is-fullheight">
@@ -82,6 +81,13 @@ const AddProduct = (props) => {
       <div className="hero-body">
         <div className="container">
           <h2 className="is-size-4 is-center">Products</h2>
+          <button
+            onClick={() => setModalVisible(!modalVisible)}
+            className="button"
+            style={{ float: "right" }}
+          >
+            Add Product
+          </button>
           <div className="table-container is-center">
             <table className="table">
               <thead>
@@ -104,14 +110,6 @@ const AddProduct = (props) => {
                         <td>{product.price}</td>
                         <td>{product.brand}</td>
                         <td>{product.category}</td>
-                        <td>
-                          <button
-                            onClick={() => setModalVisible(!modalVisible)}
-                            className="button"
-                          >
-                            Add Product
-                          </button>
-                        </td>
                         <td>
                           <button
                             onClick={() => onEdit(product)}
@@ -139,7 +137,6 @@ const AddProduct = (props) => {
             <div className="modal-card">
               <header className="modal-card-head">
                 <p className="modal-card-title">Add Product</p>
-                {/* <button className="delete" aria-label="close"></button> */}
               </header>
               <section className="modal-card-body">
                 <div className="columns is-centered">
@@ -152,12 +149,12 @@ const AddProduct = (props) => {
                         <div className="control">
                           <input
                             required
-                            value={name}
+                            value={input.name}
                             className="input"
                             name="name"
                             type="text"
                             placeholder="Product Name"
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => handleInputChange(e)}
                           />
                         </div>
                       </div>
@@ -168,12 +165,12 @@ const AddProduct = (props) => {
                         <div className="control">
                           <input
                             required
-                            value={price}
+                            value={input.price}
                             className="input"
                             name="price"
                             type="number"
                             placeholder="Price"
-                            onChange={(e) => setPrice(e.target.value)}
+                            onChange={(e) => handleInputChange(e)}
                           />
                         </div>
                       </div>
@@ -184,12 +181,12 @@ const AddProduct = (props) => {
                         <div className="control">
                           <input
                             required
-                            value={brand}
+                            value={input.brand}
                             className="input"
-                            name="price"
+                            name="brand"
                             type="text"
                             placeholder="Brand"
-                            onChange={(e) => setBrand(e.target.value)}
+                            onChange={(e) => handleInputChange(e)}
                           />
                         </div>
                       </div>
@@ -200,12 +197,12 @@ const AddProduct = (props) => {
                         <div className="control">
                           <input
                             required
-                            value={image}
+                            value={input.image}
                             className="input"
                             name="image"
                             type="text"
                             placeholder="Image"
-                            onChange={(e) => setImage(e.target.value)}
+                            onChange={(e) => handleInputChange(e)}
                           />
                         </div>
                       </div>
@@ -216,12 +213,12 @@ const AddProduct = (props) => {
                         <div className="control">
                           <input
                             required
-                            value={category}
+                            value={input.category}
                             className="input"
                             name="category"
                             type="text"
                             placeholder="Category"
-                            onChange={(e) => setCategory(e.target.value)}
+                            onChange={(e) => handleInputChange(e)}
                           />
                         </div>
                       </div>
@@ -232,12 +229,12 @@ const AddProduct = (props) => {
                         <div className="control">
                           <input
                             required
-                            value={description}
+                            value={input.description}
                             className="input"
                             name="description"
                             type="text"
                             placeholder="Description"
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={(e) => handleInputChange(e)}
                           />
                         </div>
                       </div>
@@ -248,12 +245,12 @@ const AddProduct = (props) => {
                         <div className="control">
                           <input
                             required
-                            value={countInStock}
+                            value={input.countInStock}
                             className="input"
                             name="countInStock"
                             type="number"
                             placeholder="Count In Stock"
-                            onChange={(e) => setCountInStock(e.target.value)}
+                            onChange={(e) => handleInputChange(e)}
                           />
                         </div>
                       </div>
@@ -266,7 +263,11 @@ const AddProduct = (props) => {
               </section>
               <footer className="modal-card-foot">
                 <button
-                  onClick={() => setModalVisible(!modalVisible)}
+                  onClick={() => {
+                    setModalVisible(!modalVisible);
+                    setInput({ ...initProductState });
+                    setId("");
+                  }}
                   className="button is-pulled-right"
                 >
                   Ok

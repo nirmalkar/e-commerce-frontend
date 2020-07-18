@@ -15,7 +15,7 @@ import Landing from "../pages/Landing";
 const Routes = () => {
   return (
     <>
-      <Route path="/products/:id" component={ProductDetails} />
+      <Route path="/:id/:id" component={ProductDetails} />
       <Route path="/cart/:id?" component={Cart} />
       <Route path="/shipping" component={Shipping} />
       <Route exact path="/signin" component={SignIn} />

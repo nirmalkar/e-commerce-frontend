@@ -1,5 +1,5 @@
 import React from "react";
-import "glider-js/glider.min.css";
+// import "glider-js/glider.min.css";
 const LandingSecondHero = () => {
   return (
     <section className="hero is-medium">

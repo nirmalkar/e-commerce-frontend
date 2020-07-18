@@ -8,7 +8,6 @@ import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const dispatch = useDispatch();
-  // const [products, setProducts] = useState([]);
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
   const userSignIn = useSelector((state) => state.userSignIn);
