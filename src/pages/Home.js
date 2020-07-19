@@ -3,17 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { listProducts } from "../appRedux/action/productActions";
-// import { signIn } from "../appRedux/action/userAction";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/navbar/Navbar";
 
 const Home = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
-  const userSignIn = useSelector((state) => state.userSignIn);
-  const { userInfo } = userSignIn;
-  const productSearch = useSelector((state) => state);
-  console.log(productSearch);
   useEffect(() => {
     dispatch(listProducts());
     return () => {};
@@ -26,46 +22,7 @@ const Home = () => {
   ) : (
     <section className="hero is-white is-fullheight">
       <header className="hero-head">
-        <nav className="navbar is-transparent is-fixed-top">
-          <div className="container">
-            <div className="buttons pt-4">
-              <button className="button is-success is-light">Success</button>
-            </div>
-            <div className="navbar-brand pl-2">
-              <a className="navbar-item" href="/">
-                Shyam
-              </a>
-              <span
-                className="navbar-burger burger"
-                data-target="navbarMenuHeroC"
-              >
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </div>
-            <div id="navbarMenuHeroC" className="navbar-menu">
-              <div className="navbar-end">
-                <a className="navbar-item" href="/home">
-                  Cart
-                </a>
-                <a className="navbar-item" href="/examples">
-                  Examples
-                </a>
-                {userInfo ? (
-                  <Link className="navbar-item" to="/profile">
-                    {userInfo.name}
-                  </Link>
-                ) : (
-                  <Link className="navbar-item" to="/signin">
-                    signIn
-                  </Link>
-                )}
-                <span className="navbar-item"></span>
-              </div>
-            </div>
-          </div>
-        </nav>
+        <Navbar />
       </header>
       <Sidebar />
       <div className="hero-body">
@@ -76,8 +33,8 @@ const Home = () => {
               to={`/products/${product._id}`}
               key={product._id}
             >
-              <div className="card-image">
-                <figure className="image">
+              <div className="card-image ">
+                <figure className="image is-square">
                   <img src={product.image} alt="Product" />
                 </figure>
               </div>
