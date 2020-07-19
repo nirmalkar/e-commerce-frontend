@@ -1,3 +1,9 @@
+import {
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+} from "../../constants/actionTypes/userActionTypes";
+
 const {
   USER_SIGNIN_SUCCESS,
   USER_SIGNIN_REQUEST,
@@ -31,4 +37,16 @@ function userRegisterReducer(state = {}, action) {
       return state;
   }
 }
-export { userSignInReducer, userRegisterReducer };
+function getUserReducer(state = {}, action) {
+  switch (action.type) {
+    case GET_USER_REQUEST:
+      return { loading: true };
+    case GET_USER_SUCCESS:
+      return { loading: false, userData: action.payload };
+    case GET_USER_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+export { userSignInReducer, userRegisterReducer, getUserReducer };

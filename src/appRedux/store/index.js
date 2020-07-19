@@ -8,7 +8,11 @@ import {
   productDeleteReducer,
 } from "../reducer/productReducer";
 import { cartReducer } from "../reducer/cartReducer";
-import { userSignInReducer, userRegisterReducer } from "../reducer/userReducer";
+import {
+  userSignInReducer,
+  userRegisterReducer,
+  getUserReducer,
+} from "../reducer/userReducer";
 import { searchReducer } from "../reducer/searchReducer";
 
 const cartItems = Cookie.getJSON("cartItems") || [];
@@ -27,6 +31,7 @@ const reducer = combineReducers({
   productAdd: addProductReducer,
   productDelete: productDeleteReducer,
   productSearch: searchReducer,
+  userData: getUserReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
