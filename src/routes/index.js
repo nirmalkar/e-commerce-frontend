@@ -11,6 +11,7 @@ import Shipping from "../pages/Shipping";
 import Payment from "../pages/Payment";
 import PlaceOrder from "../pages/PlaceOrder";
 import Landing from "../pages/Landing";
+import Profile from "../pages/Profile";
 
 const Routes = () => {
   return (
@@ -19,6 +20,7 @@ const Routes = () => {
       <Route path="/cart/:id?" component={Cart} />
       <Route path="/shipping" component={Shipping} />
       <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/profile" component={Profile} />
       <Route exact path="/payment" component={Payment} />
       <Route exact path="/placeorder" component={PlaceOrder} />
       <Route exact path="/register" component={Register} />
