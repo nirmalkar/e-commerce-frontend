@@ -27,9 +27,10 @@ const SignIn = (props) => {
     e.preventDefault();
     dispatch(signIn(email, password));
   };
+
   return (
     <section className="hero is-fullheight">
-      {loading && <div>Loading</div>}
+      {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
       <div className="hero-body">
         <div className="container">
